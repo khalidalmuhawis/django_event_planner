@@ -6,7 +6,10 @@ from .forms import UserSignup, UserLogin
 from .models import Event
 
 def home(request):
-    return render(request, 'home.html')
+    context = {
+        "events":Event.objects.all()
+    }
+    return render(request, 'home.html', context)
 
 class Signup(View):
     form_class = UserSignup
@@ -67,3 +70,9 @@ def dashboard(request):
         "events":Event.objects.filter(maker=request.user)
     }
     return render(request, 'dashboard.html', context)
+
+def findevents(request):
+    context = {
+        "events":Event.objects.all()
+    }
+    return render(request, 'userevents.html', context)
