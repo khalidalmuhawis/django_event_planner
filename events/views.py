@@ -64,6 +64,6 @@ class Logout(View):
 
 def dashboard(request):
     context = {
-        "events":Event.objects.all(maker=request.user)
+        "events":Event.objects.filter(maker=request.user)
     }
     return render(request, 'dashboard.html', context)

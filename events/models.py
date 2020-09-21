@@ -12,4 +12,4 @@ class Event(models.Model):
     seats = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.name
+        return self.title
