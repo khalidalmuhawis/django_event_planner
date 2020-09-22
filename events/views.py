@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.views import View
 from django.contrib import messages
-from .forms import UserSignup, UserLogin
+from .forms import UserSignup, UserLogin, EventForm
 from .models import Event
 
 def home(request):
@@ -51,7 +51,7 @@ class Login(View):
             if auth_user is not None:
                 login(request, auth_user)
                 messages.success(request, "Welcome Back!")
-                return redirect('dashboard')
+                return redirect('home')
             messages.warning(request, "Wrong email/password combination. Please try again.")
             return redirect("login")
         messages.warning(request, form.errors)
@@ -66,13 +66,54 @@ class Logout(View):
 
 
 def dashboard(request):
+    if not request.user.is_authenticated:
+        return redirect("no-access")
     context = {
-        "events":Event.objects.filter(maker=request.user)
+        "events":Event.objects.filter(organizer=request.user)
     }
     return render(request, 'dashboard.html', context)
 
-def findevents(request):
+def events(request):
     context = {
-        "events":Event.objects.all()
+        "events":Event.objects.filter()
     }
-    return render(request, 'userevents.html', context)
+    return render(request, 'events.html', context)
+
+
+def event_create(request):
+	form = EventForm()
+	if request.method == "POST":
+		form = EventForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('dashboard')
+	context = {
+	"form": form,
+	}
+	return render(request, 'event_create.html', context)
+
+
+def event_detail(request, event_id):
+    event = Event.objects.get(id=event_id)
+    context = {
+        "event": event,
+    }
+    return render(request, 'event_detail.html', context)
+
+def no_access(request):
+    return render(request, "no_access.html")
+
+
+def event_update(request, event_id):
+    event = Event.objects.get(id=event_id)
+    form = EventForm(instance=event)
+    if request.method == "POST":
+        form = EventForm(request.POST, instance=event)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    context = {
+            "event": event,
+            "form":form,
+            }
+    return render(request, 'event_update.html', context)

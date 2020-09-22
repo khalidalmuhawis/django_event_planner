@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<header class="masthead text-center text-white">
+<div class="masthead-content">
+<div class="container">
+<div class="jumbotron">
+  <h2 class="masthead-subheading mb-0">{{ event.title }}</h2>
+  <h4>Description: {{ event.description }}</h4>
+  <p>Date and Time: {{ event.datetime }}</p>
+  <p>Location: {{ event.location }}</p>
+  <p>Organizer: {{ event.organizer }}</p>
+  <p>Seats: {{ event.seats }}</p>
+  </div>
+	<a href="{% url 'event-update' event.id %}" class="btn btn-dark btn-block">Update</a>
+	</div>
+	</div>
+</header>
+{% endblock content %}

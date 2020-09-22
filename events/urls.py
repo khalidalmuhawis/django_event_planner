@@ -7,5 +7,10 @@ urlpatterns = [
     path('login/', Login.as_view(), name='login'),
     path('logout/', Logout.as_view(), name='logout'),
     path('dashboard/',views.dashboard ,name='dashboard'),
-	path('findevents/',views.findevents ,name='findevents'),
+	path('events/',views.events ,name='events'),
+	path('dashboard/create', views.event_create, name='event-create'),
+	path('events/<int:event_id>/', views.event_detail, name='event-detail'),
+	path('no-access/', views.no_access, name='no-access'),
+	path('dashboard/<int:event_id>/update/', views.event_update, name='event-update'),
+
 ]
