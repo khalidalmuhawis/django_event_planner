@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <table class="table" >
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Seats</th>
+      </tr>
+    </thead>
+    <tbody>
+  {%for guest in guests%}
+<tr>
+  <td>{{guest.event}}</td>
+  <td>{{guest.tickets}}</td>
+</tr>
+{%endfor%}
+</tbody>
+</table>
+{% endblock content %}

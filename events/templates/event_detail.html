@@ -3,18 +3,42 @@
 {% block content %}
 
 <header class="masthead text-center text-white">
-<div class="masthead-content">
-<div class="container">
-<div class="jumbotron">
-  <h2 class="masthead-subheading mb-0">{{ event.title }}</h2>
-  <h4>Description: {{ event.description }}</h4>
-  <p>Date and Time: {{ event.datetime }}</p>
-  <p>Location: {{ event.location }}</p>
-  <p>Organizer: {{ event.organizer }}</p>
-  <p>Seats: {{ event.seats }}</p>
+  <div class="masthead-content">
+    <div class="container">
+      <div class="jumbotron">
+        <h2 class="masthead-subheading mb-0">{{ event.title }}</h2>
+        <h4>Description: {{ event.description }}</h4>
+        <p>Date and Time: {{ event.datetime }}</p>
+        <p>Location: {{ event.location }}</p>
+        <p>Organizer: {{ event.organizer }}</p>
+        <p>Seats: {{ event.seats }}</p>
+      </div>
+
+
+<table class="table" >
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Event</th>
+        <th>Seats</th>
+      </tr>
+    </thead>
+    <tbody>
+
+{% for guest in guests %}
+  <tr>
+  <td scope="row">{{ guest.guest }}</td>
+  <td>{{ guest.event }}</td>
+  <td>{{ guest.tickets }}</td>
+  </tr>
+{% endfor %}
+
+
+    {% if request.user.is_staff %}
+      <a href="{% url 'event-update' event.id %}" class="btn btn-outline-dark btn-block">Edit</a>
+      <a href="{% url 'event-delete' event.id %}" class="btn btn-danger btn-block">Delete</a>
+    {% endif %}
+    </div>
   </div>
-	<a href="{% url 'event-update' event.id %}" class="btn btn-dark btn-block">Update</a>
-	</div>
-	</div>
 </header>
 {% endblock content %}

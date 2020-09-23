@@ -16,22 +16,25 @@
 <br>
 <br>
 <br>
-
+<div class="row">
 {% for event in events %}
-<div class="card" style="width: 18rem;">
-	<div class="card-body">
-		<h5 class="card-title">{{event.title}}</h5>
+<div class="col-12 col-md-6">
+<div class="card card m-3 p-3 mb-2" style="width: 18rem;">
+	<div class="card-body p-3 mb-2">
+		<h5 class="card-title cards">{{event.title}}</h5>
 		<h6 class="card-subtitle mb-2 text-muted">{{event.location}}</h6>
 		<p class="card-text">{{event.datetime}}</p>
 		<p class="card-text">Organizer: {{event.organizer}}</p>
-	 <a href="{% url 'event-detail' event.id %}" class="card-link">Details</a>
+	 <a href="{% url 'event-detail' event.id %}" class="btn btn-outline-success">Details</a>
 </div>
+</div>
+</div>
+
+{% endfor %}
 </div>
 </div>
 </div>
 </header>
-{% endfor %}
-
 {% endif %}
 
 

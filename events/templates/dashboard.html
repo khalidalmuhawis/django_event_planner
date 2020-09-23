@@ -8,26 +8,31 @@
         <a href="{% url 'signup' %}" class="btn btn-primary btn-xl rounded-pill mt-5">You must signup first!</a>
 
 {% else %}
-<a href="{% url 'event-create' %}" class="btn btn-outline-warning btn-block" role="button" aria-pressed="true">Add an Event</a>
 <div class="masthead-content">
 <div class="container">
 <h1 class="masthead-small mb-0 text-white">My Dashboard</h1>
+<a href="{% url 'event-create' %}" class="btn btn-warning" role="button" aria-pressed="true">Add New</a>
 
-</div>
-</div>
+
+
+<div class="row">
 {% for event in events %}
-<div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">{{event.title}}</h5>
+<div class="col-12 col-md-6">
+<div class="card m-3 p-3 mb-2" style="width: 18rem;">
+  <div class="card-body p-3 mb-2">
+    <h5 class="card-title cards">{{event.title}}</h5>
     <h6 class="card-subtitle mb-2 text-muted">{{event.location}}</h6>
     <p class="card-text">{{event.datetime}}</p>
-   <a href="{% url 'event-detail' event.id %}" class="card-link">Details</a>
+   <a href="{% url 'event-detail' event.id %}" class="btn btn-outline-success">Details</a>
   </div>
 </div>
+</div>
 {% endfor %}
-
+</div>
+</div>
+</div>
 {% endif %}
-
+</header>
 
 
 

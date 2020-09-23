@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class=container>
+  <div>
+	<form action="{% url 'ticket-book' event.id %}" method="POST" >
+		{% csrf_token %}
+		{{form|crispy}}
+
+		<input type="submit" value="Confirm" class="btn btn-success">
+	</form>
+</div>
+</div>
+{% endblock content %}
